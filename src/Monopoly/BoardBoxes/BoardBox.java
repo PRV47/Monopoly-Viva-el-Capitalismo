@@ -2,10 +2,10 @@ package Monopoly.BoardBoxes;
 import Monopoly.Player;
 
 public class BoardBox {
-    private int id;
+    private String text;
 
-    public BoardBox(int id) {
-        this.id = id;
+    public BoardBox(String text) {
+        this.text = text;
     }
 
     public void onFallInto(Player player){
@@ -13,6 +13,6 @@ public class BoardBox {
     }
 
     public String toStr(){
-        return String.valueOf(id);
+        return text;
     }
 }

@@ -2,7 +2,7 @@ package Monopoly.Estates;
 
 import Monopoly.Player;
 
-public class Estate {
+public abstract class Estate {
     private String name;
     private Player owner;
     private int initialPrice;
@@ -13,6 +13,10 @@ public class Estate {
         this.name = name;
         this.initialPrice = initialPrice;
         this.mortgageValue = mortgageValue;
+    }
+
+    public void updatePrice(int newPrice){
+        currentPrice = newPrice;
     }
 
     public String getName() {

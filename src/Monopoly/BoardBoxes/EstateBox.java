@@ -6,10 +6,11 @@ import Monopoly.Player;
 public class EstateBox extends BoardBox {
     private Estate estate;
 
-    public EstateBox(int id, Estate estate) {
-        super(id);
+    public EstateBox(Estate estate) {
+        super(estate.getName());
         this.estate = estate;
     }
+
 
     @Override
     public void onFallInto(Player player){
