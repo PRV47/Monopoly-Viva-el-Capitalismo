@@ -1,6 +1,8 @@
 package Monopoly.BoardBoxes;
 import Monopoly.Player;
 
+import javax.swing.*;
+
 public class BoardBox {
     private String text;
 
@@ -9,10 +11,14 @@ public class BoardBox {
     }
 
     public void onFallInto(Player player){
-
+        JFrame frame = new JFrame(text);
+        frame.setSize(300,300);
+        JOptionPane.showMessageDialog(frame, player.getName()+" ha caído en "+toString());
+        player.leaveTurn();
     }
 
-    public String toStr(){
+    @Override
+    public String toString(){
         return text;
     }
 }

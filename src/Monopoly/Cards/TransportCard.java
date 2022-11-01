@@ -1,5 +1,6 @@
 package Monopoly.Cards;
 
+import Monopoly.Game;
 import Monopoly.Player;
 
 public class TransportCard implements ICard {
@@ -15,7 +16,7 @@ public class TransportCard implements ICard {
     }
 
     @Override
-    public String toString() {
-        return "Moverse al casillero "+positionToGo;
+    public String getText() {
+        return "debe ir a "+ Game.getBoardBoxByIndex(positionToGo).toString();
     }
 }

@@ -11,10 +11,12 @@ import Monopoly.Estates.Land;
 import Monopoly.Estates.Service;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Board {
-    private BoardBox[] boardBoxes;
+    private ArrayList<BoardBox> boardBoxes;
     private Estate[] estates;
     private Color[] zones;
     private ICard[] cards;
@@ -23,7 +25,7 @@ public class Board {
         initBoardBoxes();
     }
 
-    public BoardBox[] getBoardBoxes() {
+    public ArrayList<BoardBox> getBoardBoxes() {
         return boardBoxes;
     }
 
@@ -31,7 +33,7 @@ public class Board {
         initZones();
         initEstates();
         initCards();
-        boardBoxes = new BoardBox[]{new BoardBox("<- GO"), new EstateBox(estates[0]), new CardBox("Card", randomCard()),
+        BoardBox[] boxes = new BoardBox[]{new BoardBox("<- GO"), new EstateBox(estates[0]), new CardBox("Card", randomCard()),
                 new EstateBox(estates[1]), new TaxBox("Income Tax", 100), new EstateBox(estates[2]),
                 new EstateBox(estates[3]), new CardBox("Card", randomCard()), new EstateBox(estates[4]),
                 new EstateBox(estates[5]), new BoardBox("Jail"), new EstateBox(estates[6]), new EstateBox(estates[7]),
@@ -43,6 +45,7 @@ public class Board {
                 new EstateBox(estates[22]), new EstateBox(estates[23]), new CardBox("Card", randomCard()), new EstateBox(estates[24]),
                 new EstateBox(estates[25]), new CardBox("Card", randomCard()), new EstateBox(estates[26]),
                 new TaxBox("Luxury tax", 500), new EstateBox(estates[26])};
+        boardBoxes = new ArrayList<>(Arrays.stream(boxes).toList());
     }
 
     private void initZones(){

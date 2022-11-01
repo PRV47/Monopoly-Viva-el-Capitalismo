@@ -12,6 +12,7 @@ public abstract class Estate {
     public Estate(String name, int initialPrice, int mortgageValue) {
         this.name = name;
         this.initialPrice = initialPrice;
+        this.currentPrice = initialPrice;
         this.mortgageValue = mortgageValue;
     }
 

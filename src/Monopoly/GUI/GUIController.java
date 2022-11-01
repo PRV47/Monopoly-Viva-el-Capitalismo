@@ -1,6 +1,6 @@
-package Monopoly;
+package Monopoly.GUI;
 
-import Monopoly.BoardBoxes.BoardBox;
+import Monopoly.Board;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -23,7 +23,7 @@ public class GUIController {
         initBoardBoxesPanels();
 
         for (int i = 0; i < boardBoxesPanels.length; i++){
-            fillTextBox(boardBoxesPanels[i], board.getBoardBoxes()[i].toStr());
+            fillTextBox(boardBoxesPanels[i], board.getBoardBoxes().get(i).toString());
         }
 
     }

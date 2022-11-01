@@ -1,5 +1,6 @@
 package Monopoly.Cards;
 
+import Monopoly.Game;
 import Monopoly.Player;
 
 public class MoneyCard implements ICard{
@@ -12,5 +13,11 @@ public class MoneyCard implements ICard{
     @Override
     public void actOn(Player player) {
 
+    }
+
+    @Override
+    public String getText() {
+        if (amount > 0) return "recibe $"+amount;
+        else return "debe pagar $"+(-amount);
     }
 }
