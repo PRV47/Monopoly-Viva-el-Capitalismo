@@ -12,7 +12,7 @@ public class TransportCard implements ICard {
 
     @Override
     public void actOn(Player player) {
-
+        player.moveTo(positionToGo);
     }
 
     @Override

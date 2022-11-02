@@ -21,7 +21,10 @@ public class EstateBox extends BoardBox {
         System.out.println(player.getName()+" ha caido en "+toString());
         if (estate.getOwner() == null)
             showEstateOffer(player);
-        else collectMoney(player);
+        else {
+            if (estate.getOwner() != player)
+                collectMoney(player);
+        }
         Game.setNextTurn();
     }
 

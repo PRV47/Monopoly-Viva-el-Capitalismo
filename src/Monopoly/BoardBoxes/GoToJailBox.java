@@ -13,6 +13,7 @@ public class GoToJailBox extends BoardBox{
     @Override
     public void onFallInto(Player player) {
         System.out.println(player.getName()+" cayo en casillero: "+ toString());
-        player.leaveTurn();
+        player.setCanMove(false);
+        player.moveTo(jailBoxID);
     }
 }

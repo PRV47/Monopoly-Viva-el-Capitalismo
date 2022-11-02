@@ -16,6 +16,7 @@ public class CardBox extends BoardBox{
     @Override
     public void onFallInto(Player player) {
         System.out.println(player.getName()+" ha caido en "+toString()+" y obtuvo la carta: "+card.getText());
+        card.actOn(player);
         player.leaveTurn();
     }
 }

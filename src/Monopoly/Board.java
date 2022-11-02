@@ -41,7 +41,7 @@ public class Board {
                 new CardBox("Carta", randomCard()), new EstateBox(estates[12]),  new EstateBox(estates[13]),
                 new BoardBox("Estacionamiento"), new EstateBox(estates[14]), new CardBox("Carta", randomCard()),
                 new EstateBox(estates[15]), new EstateBox(estates[16]), new EstateBox(estates[17]), new EstateBox(estates[18]),
-                new EstateBox(estates[19]), new EstateBox(estates[20]), new EstateBox(estates[21]), new GoToJailBox("Ve a la carcel", 9),
+                new EstateBox(estates[19]), new EstateBox(estates[20]), new EstateBox(estates[21]), new GoToJailBox("Ve a la carcel", 10),
                 new EstateBox(estates[22]), new EstateBox(estates[23]), new CardBox("Carta", randomCard()), new EstateBox(estates[24]),
                 new EstateBox(estates[25]), new CardBox("Carta", randomCard()), new EstateBox(estates[26]),
                 new TaxBox("Impuesto", 100), new EstateBox(estates[26])};
@@ -64,9 +64,9 @@ public class Board {
                 new Land("Plaza ST James", 180, 50, zones[3]), new Land("AV Tennessee", 180, 50, zones[3]),
                 new Land("AV Nueva York", 200, 50, zones[3]), new Land("AV Kentucky", 220, 50, zones[4]),
                 new Land("AV Indiana", 220, 50, zones[4]), new Land("AV Illinois", 240, 50, zones[4]),
-                new Ferry("B. & O.", 200, 50), new Land("AV Atlántico", 260, 50, zones[5]),
+                new Ferry("B. & O.", 200, 50), new Land("AV Atlantico", 260, 50, zones[5]),
                 new Land("AV Ventnor", 260, 50, zones[5]), new Service("Compania de agua",150, 50),
-                new Land("Jardines Marvin", 280, 50, zones[5]), new Land("AV Pacífico", 300, 50, zones[6]),
+                new Land("Jardines Marvin", 280, 50, zones[5]), new Land("AV Pacifico", 300, 50, zones[6]),
                 new Land("AV Carolina del Norte", 300, 50, zones[6]), new Land("AV Pennsylvania", 320, 50, zones[6]),
                 new Ferry("Via Rapida", 200, 50), new Land("Plaza Park", 350, 50, zones[7]),
                 new Land("El Muelle", 400, 50, zones[7])};

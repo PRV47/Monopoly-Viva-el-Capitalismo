@@ -12,7 +12,7 @@ public class MoneyCard implements ICard{
 
     @Override
     public void actOn(Player player) {
-
+        player.addMoney(amount);
     }
 
     @Override

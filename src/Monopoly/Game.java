@@ -44,6 +44,7 @@ public class Game {
     public static void setNextTurn(){
         playerTurnIndex++;
         if (playerTurnIndex == players.size()) playerTurnIndex = 0;
+        System.out.println("canMove: "+players.get(playerTurnIndex).canMove());
         showMenu();
     }
 
@@ -55,12 +56,17 @@ public class Game {
 
     public static void throwActualPlayerDices(){
         Player player = players.get(playerTurnIndex);
-
         player.throwDices();
-        int position = player.getPosition()+player.getSumDicesValue();
-        if (position >= board.getBoardBoxes().size())
-            position = (board.getBoardBoxes().size()-1)-player.getPosition()+player.getSumDicesValue();
-        player.moveTo(position, board.getBoardBoxes().get(position));
+
+        if (player.canMove()) {
+            int position = player.getPosition() + player.getSumDicesValue();
+            if (position >= board.getBoardBoxes().size())
+                position = (board.getBoardBoxes().size() - 1) - player.getPosition() + player.getSumDicesValue();
+            player.moveTo(position);
+        }
+        else {
+            if (player.getDices()[0] == player.getDices()[1]) player.setCanMove(true);
+        }
     }
 
     public static void printActualPlayerEstates(){
@@ -75,8 +81,11 @@ public class Game {
 
     private static void showMenu(){
         Player player = players.get(playerTurnIndex);
+        System.out.println("-----------------------------------------------------");
         System.out.println("Turno de "+player.getName());
+        System.out.println("-----------------------------------------------------");
         System.out.println();
-        IOController.showMenu();
+        if (players.get(playerTurnIndex).canMove()) IOController.showMenu();
+        else IOController.showJailOptions(players.get(playerTurnIndex));
     }
 }

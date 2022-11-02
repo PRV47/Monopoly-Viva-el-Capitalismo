@@ -12,8 +12,9 @@ public class Player {
     private BoardToken boardToken;
     private LinkedList<Estate> estates = new LinkedList<>();
     private int currentPosition;
-    private boolean canMove;
+    private boolean canMove = true;
     private int[] lastDicesValue;
+    private boolean hasJailReleaseCard;
 
     public Player(String name, int money, BoardToken boardToken, int currentPosition) {
         this.name = name;
@@ -38,6 +39,10 @@ public class Player {
         return lastDicesValue;
     }
 
+    public boolean canMove() { return canMove; }
+
+    public boolean hasJailReleaseCard() { return hasJailReleaseCard; }
+
     public int getSumDicesValue() {
         return lastDicesValue[0]+lastDicesValue[1];
     }
@@ -49,8 +54,9 @@ public class Player {
         System.out.println("Dados de "+name+": "+dice1+" "+dice2);
     }
 
-    public void moveTo(int newPosition, BoardBox box){
+    public void moveTo(int newPosition){
         currentPosition = newPosition;
+        BoardBox box = Game.getBoardBoxByIndex(currentPosition);
         box.onFallInto(this);
     }
 
@@ -61,7 +67,7 @@ public class Player {
             estate.setOwner(this);
             System.out.println("Compra exitosa");
         }
-        else  System.out.println("Dinero insuficiente. Debera hipotecar bienes");
+        else  System.out.println("Dinero insuficiente");
     }
 
     public void leaveTurn(){
@@ -69,7 +75,19 @@ public class Player {
     }
 
     public void addMoney(int amount){
+        if (money+amount < 0) System.out.println("Dinero insuficiente");
         money += amount;
+    }
+
+    public boolean canPay(int amount){ return money-amount >= 0; }
+
+    public void setHasJailReleaseCard(boolean hasCard){
+        hasJailReleaseCard = hasCard;
+    }
+
+    public void setCanMove(boolean value){
+        canMove = value;
+        if (value) System.out.println(name+" fue liberado de la carcel");
     }
 
     @Override

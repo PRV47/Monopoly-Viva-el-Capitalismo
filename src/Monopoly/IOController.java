@@ -61,4 +61,45 @@ public class IOController {
 
         return value;
     }
+
+    public static void showJailOptions(Player player){
+        Scanner keyboard = new Scanner(System.in);
+        boolean exit = false;
+
+        while (!exit) {
+            System.out.println("1. Pagar fianza ($50)");
+            System.out.println("2. Lanzar dados");
+            System.out.println("3. Usar carta de liberacion");
+            String input = keyboard.nextLine();
+            if(input != null) {
+                try {
+                    int option = Integer.parseInt(input);
+
+                    switch (option) {
+                        case 1 -> {
+                            exit = player.canPay(50);
+                            if (exit) player.setCanMove(true);
+                            player.addMoney(-50);
+                        }
+                        case 2 -> {
+                            Game.throwActualPlayerDices();
+                            player.leaveTurn();
+                            exit = true;
+                        }
+                        case 3 -> {
+                            if (player.hasJailReleaseCard()) {
+                                player.setHasJailReleaseCard(false);
+                                player.setCanMove(true);
+                                exit = true;
+                            }
+                            else System.out.println("No posee la carta de liberacion");
+                        }
+                        default -> System.out.println("Ingrese una opcion valida");
+                    }
+                }catch (Exception e){
+                    System.out.println("Ingrese una opcion valida");
+                }
+            }
+        }
+    }
 }
