@@ -5,19 +5,15 @@ import Monopoly.Player;
 public abstract class Estate {
     private String name;
     private Player owner;
-    private int initialPrice;
-    private int currentPrice;
+    private int price;
+    private int rentValue;
     private int mortgageValue;
 
-    public Estate(String name, int initialPrice, int mortgageValue) {
+    public Estate(String name, int price, int mortgageValue) {
         this.name = name;
-        this.initialPrice = initialPrice;
-        this.currentPrice = initialPrice;
+        this.price = price;
         this.mortgageValue = mortgageValue;
-    }
-
-    public void updatePrice(int newPrice){
-        currentPrice = newPrice;
+        rentValue = (int) (price*0.09);
     }
 
     public String getName() {
@@ -36,13 +32,11 @@ public abstract class Estate {
         this.owner = owner;
     }
 
-    public int getCurrentPrice() {
-        return currentPrice;
+    public int getPrice() {
+        return price;
     }
 
-    public void setCurrentPrice(int currentPrice) {
-        this.currentPrice = currentPrice;
-    }
+    public int getRentValue() {return rentValue;}
 
     public int getMortgageValue() {
         return mortgageValue;

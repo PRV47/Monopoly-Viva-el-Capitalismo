@@ -6,7 +6,7 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
-public class GUIController {
+public class BoardGUI {
     private JFrame mainFrame;
     private JPanel mainPanel;
     private JPanel[] boardBoxesPanels = new JPanel[40];
@@ -25,7 +25,6 @@ public class GUIController {
         for (int i = 0; i < boardBoxesPanels.length; i++){
             fillTextBox(boardBoxesPanels[i], board.getBoardBoxes().get(i).toString());
         }
-
     }
 
     private void initMainFrame(){

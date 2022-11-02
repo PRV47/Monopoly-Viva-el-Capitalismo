@@ -3,7 +3,6 @@ package Monopoly;
 import Monopoly.BoardBoxes.BoardBox;
 import Monopoly.Estates.Estate;
 
-import javax.swing.*;
 import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -31,8 +30,8 @@ public class Player {
         return currentPosition;
     }
 
-    public int getMoney() {
-        return money;
+    public LinkedList<Estate> getEstates() {
+        return estates;
     }
 
     public int[] getDices() {
@@ -47,6 +46,7 @@ public class Player {
         int dice1 = ThreadLocalRandom.current().nextInt(1, 7);
         int dice2 = ThreadLocalRandom.current().nextInt(1, 7);
         lastDicesValue = new int[]{ dice1, dice2};
+        System.out.println("Dados de "+name+": "+dice1+" "+dice2);
     }
 
     public void moveTo(int newPosition, BoardBox box){
@@ -55,22 +55,26 @@ public class Player {
     }
 
     public void checkBuyEstate(Estate estate){
-        String message;
-        if (money >= estate.getCurrentPrice()){
-            money -= estate.getCurrentPrice();
+        if (money >= estate.getPrice()){
+            money -= estate.getPrice();
             estates.add(estate);
             estate.setOwner(this);
-            message = "Compra exitosa";
+            System.out.println("Compra exitosa");
         }
-        else message = "Dinero insuficiente. Deberá hipotecar bienes";
-
-        JFrame frame = new JFrame("Aviso");
-        frame.setSize(300,300);
-        JOptionPane.showMessageDialog(frame, message);
-        leaveTurn();
+        else  System.out.println("Dinero insuficiente. Debera hipotecar bienes");
     }
 
     public void leaveTurn(){
         Game.setNextTurn();
+    }
+
+    public void addMoney(int amount){
+        money += amount;
+    }
+
+    @Override
+    public String toString(){
+        return "Nombre: "+name+", Pieza: "+boardToken+", Posicion: "+
+                Game.getBoardBoxByIndex(currentPosition)+", Dinero: "+money;
     }
 }

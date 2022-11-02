@@ -1,4 +1,5 @@
 package Monopoly.BoardBoxes;
+import Monopoly.Game;
 import Monopoly.Player;
 
 import javax.swing.*;
@@ -11,9 +12,7 @@ public class BoardBox {
     }
 
     public void onFallInto(Player player){
-        JFrame frame = new JFrame(text);
-        frame.setSize(300,300);
-        JOptionPane.showMessageDialog(frame, player.getName()+" ha caído en "+toString());
+        System.out.println(player.getName()+" ha caido en "+toString());
         player.leaveTurn();
     }
 

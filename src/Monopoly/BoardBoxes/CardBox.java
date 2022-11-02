@@ -15,9 +15,7 @@ public class CardBox extends BoardBox{
 
     @Override
     public void onFallInto(Player player) {
-        JFrame frame = new JFrame("Carta obtenida!");
-        frame.setSize(300,300);
-        JOptionPane.showMessageDialog(frame,  player.getName()+" "+card.getText());
+        System.out.println(player.getName()+" ha caido en "+toString()+" y obtuvo la carta: "+card.getText());
         player.leaveTurn();
     }
 }
