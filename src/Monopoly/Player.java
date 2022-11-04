@@ -2,6 +2,7 @@ package Monopoly;
 
 import Monopoly.BoardBoxes.BoardBox;
 import Monopoly.Estates.Estate;
+import Monopoly.GUI.PlayerGUI;
 
 import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -15,12 +16,14 @@ public class Player {
     private boolean canMove = true;
     private int[] lastDicesValue;
     private boolean hasJailReleaseCard;
+    private PlayerGUI playerGUI;
 
-    public Player(String name, int money, BoardToken boardToken, int currentPosition) {
+    public Player(String name, int money, BoardToken boardToken, int currentPosition, PlayerGUI playerGUI) {
         this.name = name;
         this.money = money;
         this.boardToken = boardToken;
         this.currentPosition = currentPosition;
+        this.playerGUI = playerGUI;
     }
 
     public String getName() {
@@ -40,6 +43,8 @@ public class Player {
     }
 
     public boolean canMove() { return canMove; }
+    public BoardToken getBoardToken() { return boardToken; }
+    public PlayerGUI getPlayerGUI() { return playerGUI; }
 
     public boolean hasJailReleaseCard() { return hasJailReleaseCard; }
 
@@ -55,6 +60,9 @@ public class Player {
     }
 
     public void moveTo(int newPosition){
+        playerGUI.setIconIn(Game.getBoardBoxPanelByIndex(newPosition));
+        Game.updateBoxPanelGUI(currentPosition);
+        Game.updateBoxPanelGUI(newPosition);
         currentPosition = newPosition;
         BoardBox box = Game.getBoardBoxByIndex(currentPosition);
         box.onFallInto(this);
@@ -67,7 +75,13 @@ public class Player {
             estate.setOwner(this);
             System.out.println("Compra exitosa");
         }
-        else  System.out.println("Dinero insuficiente");
+        else {
+            System.out.println("Dinero insuficiente");
+            if (estates.size() > 0 && IOController.yesNoQuestion("Deseas hipotecar bienes? (Y/N)")) {
+                IOController.showMortgageOptions(this);
+                checkBuyEstate(estate);
+            }
+        }
     }
 
     public void leaveTurn(){
@@ -75,7 +89,7 @@ public class Player {
     }
 
     public void addMoney(int amount){
-        if (money+amount < 0) System.out.println("Dinero insuficiente");
+        if (money+amount < 0) checkBankruptcy();
         money += amount;
     }
 
@@ -88,6 +102,18 @@ public class Player {
     public void setCanMove(boolean value){
         canMove = value;
         if (value) System.out.println(name+" fue liberado de la carcel");
+    }
+
+    public void mortgageEstate(int index){
+        if (index >= estates.size()) return;
+        addMoney(estates.get(index).getMortgageValue());
+        estates.remove(index);
+    }
+
+    private void checkBankruptcy(){
+        System.out.println("Dinero insuficiente");
+        if (estates.size() > 0) IOController.showMortgageOptions(this);
+        else Game.goBankrupt(this);
     }
 
     @Override

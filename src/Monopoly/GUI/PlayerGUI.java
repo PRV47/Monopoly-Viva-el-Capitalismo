@@ -1,0 +1,43 @@
+package Monopoly.GUI;
+
+import Monopoly.BoardToken;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class PlayerGUI {
+    private int id;
+    private JLabel labelIcon;
+    private JPanel currentPanel;
+
+    public PlayerGUI(BoardToken token, int id){
+        this.id = id;
+        ImageIcon imageIcon = createImageIcon("../../Images/"+token.toString()+".png", "icon");
+        Image newImage = imageIcon.getImage().getScaledInstance(40, 40,  java.awt.Image.SCALE_SMOOTH);
+        imageIcon = new ImageIcon(newImage);
+        labelIcon = new JLabel(imageIcon);
+    }
+
+    public void setIconIn(JPanel panel){
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.gridx = 1+id;
+        constraints.gridy = -5;
+        constraints.weighty = 30;
+        constraints.weightx = 5;
+
+        if (currentPanel != null) currentPanel.remove(labelIcon);
+        panel.add(labelIcon,constraints);
+        currentPanel = panel;
+    }
+
+    /** Returns an ImageIcon, or null if the path was invalid. */
+    private ImageIcon createImageIcon(String path, String description) {
+        java.net.URL imgURL = getClass().getResource(path);
+        if (imgURL != null) {
+            return new ImageIcon(imgURL, description);
+        } else {
+            System.err.println("Couldn't find file: " + path);
+            return null;
+        }
+    }
+}

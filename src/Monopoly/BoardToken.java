@@ -4,7 +4,7 @@ public enum BoardToken {
     RaceCar,
     Dog,
     Hat,
-    Horse,
+    Cat,
     Thimble,
     Wheelbarrow
 }

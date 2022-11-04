@@ -2,24 +2,32 @@ package Monopoly;
 
 import Monopoly.BoardBoxes.BoardBox;
 import Monopoly.GUI.BoardGUI;
+import Monopoly.GUI.PlayerGUI;
 
+import javax.swing.*;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-public class Game {
+public abstract class Game {
     private static LinkedList<Player> players;
     private static Board board;
     private static int playerTurnIndex;
-    private static BoardGUI gui;
+    private static BoardGUI boardGUI;
 
     public static void main(String[] args) {
         board = new Board();
-        gui = new BoardGUI();
-        gui.initGUI(board);
+        boardGUI = new BoardGUI();
+        boardGUI.init(board);
         players = new LinkedList<>(){{
-            add(new Player("player1", 1500, BoardToken.Hat, 0));
-            add(new Player("player2", 1500, BoardToken.Dog, 0));
+            add(new Player("player1", 1500, BoardToken.Hat, 0, new PlayerGUI(BoardToken.Hat,0)));
+            add(new Player("player2", 1500, BoardToken.Dog, 0, new PlayerGUI(BoardToken.Dog,1)));
         }};
+
+        for (Player player : players) {
+            player.getPlayerGUI().setIconIn(boardGUI.getBoxPanel(0));
+        }
+
+        updateBoxPanelGUI(0);
 
         int maxDices = 0;
         for (Player player : players) {
@@ -41,10 +49,19 @@ public class Game {
         return board.getBoardBoxes().get(index);
     }
 
+    public static JPanel getBoardBoxPanelByIndex(int index){
+        return boardGUI.getBoxPanel(index);
+    }
+
+    public static void updateBoxPanelGUI(int index){
+        boardGUI.updateBoxPanel(index);
+    }
+
+    public static Player GetCurrentTurnPlayer(){ return players.get(playerTurnIndex); }
+
     public static void setNextTurn(){
         playerTurnIndex++;
         if (playerTurnIndex == players.size()) playerTurnIndex = 0;
-        System.out.println("canMove: "+players.get(playerTurnIndex).canMove());
         showMenu();
     }
 
@@ -72,6 +89,21 @@ public class Game {
     public static void printActualPlayerEstates(){
         Player player = players.get(playerTurnIndex);
        player.getEstates().forEach(e -> System.out.println(e.getName()));
+    }
+
+    public static void goBankrupt(Player player){
+        System.out.println(player.getName()+" entro en bancarrota");
+        players.remove(player);
+        checkForWinner();
+    }
+
+    private static void checkForWinner(){
+        if (players.size() == 1){
+            System.out.println("-----------------------------------------------------");
+            System.out.println("El ganador es "+players.get(0).getName()+"!");
+            System.out.println("-----------------------------------------------------");
+            boardGUI.close();
+        }
     }
 
     private static void pressEnterToContinue(String message){

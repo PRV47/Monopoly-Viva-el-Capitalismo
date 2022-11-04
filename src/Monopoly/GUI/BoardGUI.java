@@ -14,7 +14,7 @@ public class BoardGUI {
     private int rows = 11;
     private int columns = 11;
 
-    public void initGUI(Board board){
+    public void init(Board board){
         mainPanel = new JPanel();
         mainPanel.setLayout(new GridBagLayout());
         mainPanel.setBackground(new Color(191,218,193));
@@ -25,6 +25,18 @@ public class BoardGUI {
         for (int i = 0; i < boardBoxesPanels.length; i++){
             fillTextBox(boardBoxesPanels[i], board.getBoardBoxes().get(i).toString());
         }
+    }
+
+    public void updateBoxPanel(int index){
+        mainFrame.revalidate();
+        mainFrame.repaint();
+        mainFrame.update(boardBoxesPanels[index].getGraphics());
+    }
+
+    public JPanel getBoxPanel(int index){ return boardBoxesPanels[index]; }
+
+    public void close(){
+        mainFrame.setVisible(false);
     }
 
     private void initMainFrame(){
@@ -97,10 +109,10 @@ public class BoardGUI {
     private void fillTextBox(JPanel box, String text){
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridx = 0;
-        constraints.gridy = -1;
+        constraints.gridy = 0;
         constraints.weighty = 30;
         constraints.weightx = 5;
-        constraints.fill = GridBagConstraints.CENTER;
+        constraints.fill = GridBagConstraints.ABOVE_BASELINE;
 
         JTextArea textArea = new JTextArea(text);
         textArea.setBackground(new Color(0,0,0,0));

@@ -11,6 +11,7 @@ public class IOController {
             System.out.println("1. Mostrar informacion de los jugadores");
             System.out.println("2. Lanzar dados");
             System.out.println("3. Mostrar mis bienes");
+            System.out.println("4. Hipotecar bienes");
             String input = keyboard.nextLine();
             if(input != null) {
                 try {
@@ -28,6 +29,9 @@ public class IOController {
                         case 3 -> {
                             Game.printActualPlayerEstates();
                             keyboard.nextLine();
+                        }
+                        case 4 -> {
+                            showMortgageOptions(Game.GetCurrentTurnPlayer());
                         }
                         default -> System.out.println("Ingrese una opcion valida");
                     }
@@ -60,6 +64,26 @@ public class IOController {
         }
 
         return value;
+    }
+
+    public static void showMortgageOptions(Player player){
+        Scanner keyboard = new Scanner(System.in);
+        boolean exit = false;
+
+        while (!exit) {
+            System.out.println("Seleccione el bien que desea hipotecar (1-"+player.getEstates().size()+")");
+            Game.printActualPlayerEstates();
+            String input = keyboard.nextLine();
+            if(input != null) {
+                try {
+                    int option = Integer.parseInt(input);
+                    player.mortgageEstate(option-1);
+                    exit = true;
+                }catch (Exception e){
+                    System.out.println("Ingrese una opcion valida");
+                }
+            }
+        }
     }
 
     public static void showJailOptions(Player player){
