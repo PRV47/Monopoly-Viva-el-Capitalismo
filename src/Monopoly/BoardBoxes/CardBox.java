@@ -3,10 +3,8 @@ package Monopoly.BoardBoxes;
 import Monopoly.Cards.ICard;
 import Monopoly.Player;
 
-import javax.swing.*;
-
 public class CardBox extends BoardBox{
-    private ICard card;
+    private final ICard card;
 
     public CardBox(String text, ICard card) {
         super(text);

@@ -6,7 +6,7 @@ public class Land extends Estate{
     private int houses;
     private int hotels;
     private int housesCost;
-    private Color colorZone;
+    private final Color colorZone;
 
     public Land(String name, int initialPrice, Color colorZone) {
         super(name, initialPrice);

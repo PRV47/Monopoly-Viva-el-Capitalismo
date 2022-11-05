@@ -5,7 +5,7 @@ import Monopoly.Player;
 import javax.swing.*;
 
 public class BoardBox {
-    private String text;
+    private final String text;
 
     public BoardBox(String text) {
         this.text = text;

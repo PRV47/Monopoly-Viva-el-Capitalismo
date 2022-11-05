@@ -8,15 +8,15 @@ import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Player {
-    private String name;
+    private final String name;
     private int money;
-    private BoardToken boardToken;
-    private LinkedList<Estate> estates = new LinkedList<>();
+    private final BoardToken boardToken;
+    private final LinkedList<Estate> estates = new LinkedList<>();
     private int currentPosition;
     private boolean canMove = true;
     private int[] lastDicesValue;
     private boolean hasJailReleaseCard;
-    private PlayerGUI playerGUI;
+    private final PlayerGUI playerGUI;
 
     public Player(String name, int money, BoardToken boardToken, int currentPosition, PlayerGUI playerGUI) {
         this.name = name;
@@ -44,7 +44,7 @@ public class Player {
     }
 
     public boolean canMove() { return canMove; }
-    public BoardToken getBoardToken() { return boardToken; }
+
     public PlayerGUI getPlayerGUI() { return playerGUI; }
 
     public boolean hasJailReleaseCard() { return hasJailReleaseCard; }

@@ -3,7 +3,7 @@ package Monopoly.BoardBoxes;
 import Monopoly.Player;
 
 public class GoToJailBox extends BoardBox{
-    private int jailBoxID;
+    private final int jailBoxID;
 
     public GoToJailBox(String text, int jailBoxID) {
         super(text);

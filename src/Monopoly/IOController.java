@@ -36,9 +36,7 @@ public class IOController {
                             Game.printActualPlayerEstates();
                             keyboard.nextLine();
                         }
-                        case 4 -> {
-                            showMortgageOptions(Game.GetCurrentTurnPlayer());
-                        }
+                        case 4 -> showMortgageOptions(Game.GetCurrentTurnPlayer());
                         default -> System.out.println("Ingrese una opcion valida");
                     }
                 }catch (Exception e){

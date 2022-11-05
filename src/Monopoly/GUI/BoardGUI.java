@@ -13,11 +13,11 @@ import java.util.LinkedList;
 public class BoardGUI {
     private JFrame mainFrame;
     private JPanel mainPanel;
-    private JPanel[] boardBoxesPanels = new JPanel[40];
-    private JPanel[][] matrixPanels = new JPanel[11][11];
+    private final JPanel[] boardBoxesPanels = new JPanel[40];
+    private final JPanel[][] matrixPanels = new JPanel[11][11];
     private JList playersMoney;
-    private int rows = 11;
-    private int columns = 11;
+    private final int rows = 11;
+    private final int columns = 11;
 
     public void init(Board board){
         mainPanel = new JPanel();

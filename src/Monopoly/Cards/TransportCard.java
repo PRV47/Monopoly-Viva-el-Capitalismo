@@ -4,7 +4,7 @@ import Monopoly.Game;
 import Monopoly.Player;
 
 public class TransportCard implements ICard {
-    private int positionToGo;
+    private final int positionToGo;
 
     public TransportCard(int positionToGo){
         this.positionToGo = positionToGo;

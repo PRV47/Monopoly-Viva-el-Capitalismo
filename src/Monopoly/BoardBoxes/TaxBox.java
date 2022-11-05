@@ -5,7 +5,7 @@ import Monopoly.Player;
 import java.util.Scanner;
 
 public class TaxBox extends BoardBox{
-    private int amountToPay;
+    private final int amountToPay;
 
     public TaxBox(String text, int amountToPay) {
         super(text);

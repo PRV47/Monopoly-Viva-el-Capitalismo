@@ -3,11 +3,11 @@ package Monopoly.Estates;
 import Monopoly.Player;
 
 public abstract class Estate {
-    private String name;
+    private final String name;
     private Player owner;
-    private int price;
-    private int rentValue;
-    private int mortgageValue;
+    private final int price;
+    private final int rentValue;
+    private final int mortgageValue;
 
     public Estate(String name, int price) {
         this.name = name;

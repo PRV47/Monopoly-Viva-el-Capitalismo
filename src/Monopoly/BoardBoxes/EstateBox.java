@@ -8,7 +8,7 @@ import Monopoly.Player;
 import java.util.Scanner;
 
 public class EstateBox extends BoardBox {
-    private Estate estate;
+    private final Estate estate;
 
     public EstateBox(Estate estate) {
         super(estate.getName());
@@ -19,7 +19,7 @@ public class EstateBox extends BoardBox {
 
     @Override
     public void onFallInto(Player player){
-        System.out.println(player.getName()+" ha caido en "+toString());
+        System.out.println(player.getName()+" ha caido en "+this);
         if (estate.getOwner() == null)
             showEstateOffer(player);
         else {

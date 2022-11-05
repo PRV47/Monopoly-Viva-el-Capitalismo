@@ -4,7 +4,7 @@ import Monopoly.Game;
 import Monopoly.Player;
 
 public class MoneyCard implements ICard{
-    private int amount;
+    private final int amount;
 
     public MoneyCard(int amount){
         this.amount = amount;
