@@ -6,12 +6,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class PlayerGUI {
-    private int id;
     private JLabel labelIcon;
     private JPanel currentPanel;
 
-    public PlayerGUI(BoardToken token, int id){
-        this.id = id;
+    public PlayerGUI(BoardToken token){
         ImageIcon imageIcon = createImageIcon("../../Images/"+token.toString()+".png", "icon");
         Image newImage = imageIcon.getImage().getScaledInstance(40, 40,  java.awt.Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(newImage);
@@ -20,8 +18,8 @@ public class PlayerGUI {
 
     public void setIconIn(JPanel panel){
         GridBagConstraints constraints = new GridBagConstraints();
-        constraints.gridx = 1+id;
-        constraints.gridy = -5;
+        constraints.gridx = -1;
+        constraints.gridy = 2;
         constraints.weighty = 30;
         constraints.weightx = 5;
 

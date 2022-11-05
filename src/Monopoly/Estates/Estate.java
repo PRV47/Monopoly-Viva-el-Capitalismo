@@ -9,19 +9,15 @@ public abstract class Estate {
     private int rentValue;
     private int mortgageValue;
 
-    public Estate(String name, int price, int mortgageValue) {
+    public Estate(String name, int price) {
         this.name = name;
         this.price = price;
-        this.mortgageValue = mortgageValue;
+        this.mortgageValue = Math.floorDiv(price,2);
         rentValue = (int) (price*0.09);
     }
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Player getOwner() {

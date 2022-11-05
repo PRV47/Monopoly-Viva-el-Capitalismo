@@ -12,7 +12,8 @@ public class MoneyCard implements ICard{
 
     @Override
     public void actOn(Player player) {
-        player.addMoney(amount);
+        if (amount < 0) player.subtractMoney(-amount, true);
+        else player.addMoney(amount);
     }
 
     @Override

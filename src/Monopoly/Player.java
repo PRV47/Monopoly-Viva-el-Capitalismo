@@ -29,6 +29,7 @@ public class Player {
     public String getName() {
         return name;
     }
+    public int getMoney() { return money; }
 
     public int getPosition() {
         return currentPosition;
@@ -70,7 +71,7 @@ public class Player {
 
     public void checkBuyEstate(Estate estate){
         if (money >= estate.getPrice()){
-            money -= estate.getPrice();
+            subtractMoney(estate.getPrice(), false);
             estates.add(estate);
             estate.setOwner(this);
             System.out.println("Compra exitosa");
@@ -89,8 +90,14 @@ public class Player {
     }
 
     public void addMoney(int amount){
-        if (money+amount < 0) checkBankruptcy();
         money += amount;
+        Game.updatePlayersMoneyInfo();
+    }
+
+    public void subtractMoney(int amount, boolean isRequired){
+        if (money-amount < 0) checkBankruptcy(isRequired);
+        money -= amount;
+        Game.updatePlayersMoneyInfo();
     }
 
     public boolean canPay(int amount){ return money-amount >= 0; }
@@ -110,10 +117,12 @@ public class Player {
         estates.remove(index);
     }
 
-    private void checkBankruptcy(){
+    private void checkBankruptcy(boolean isRequired){
         System.out.println("Dinero insuficiente");
         if (estates.size() > 0) IOController.showMortgageOptions(this);
-        else Game.goBankrupt(this);
+        else {
+            if (isRequired) Game.goBankrupt(this);
+        }
     }
 
     @Override

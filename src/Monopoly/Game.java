@@ -6,7 +6,6 @@ import Monopoly.GUI.PlayerGUI;
 
 import javax.swing.*;
 import java.util.LinkedList;
-import java.util.Scanner;
 
 public abstract class Game {
     private static LinkedList<Player> players;
@@ -15,33 +14,19 @@ public abstract class Game {
     private static BoardGUI boardGUI;
 
     public static void main(String[] args) {
+        startGame();
+    }
+
+    private static void startGame(){
         board = new Board();
         boardGUI = new BoardGUI();
+        players = new LinkedList<>();
         boardGUI.init(board);
-        players = new LinkedList<>(){{
-            add(new Player("player1", 1500, BoardToken.Hat, 0, new PlayerGUI(BoardToken.Hat,0)));
-            add(new Player("player2", 1500, BoardToken.Dog, 0, new PlayerGUI(BoardToken.Dog,1)));
-        }};
 
-        for (Player player : players) {
-            player.getPlayerGUI().setIconIn(boardGUI.getBoxPanel(0));
-        }
-
+        initPlayers();
+        updatePlayersMoneyInfo();
         updateBoxPanelGUI(0);
-
-        int maxDices = 0;
-        for (Player player : players) {
-            pressEnterToContinue(player.getName()+" presiona enter para lanzar dados");
-            player.throwDices();
-            System.out.println();
-            var dices = player.getDices();
-
-            if (dices[0]+dices[1] > maxDices){
-                maxDices = dices[0]+dices[1];
-                playerTurnIndex = players.indexOf(player);
-            }
-        }
-        System.out.println();
+        getFirstTurn();
         showMenu();
     }
 
@@ -56,6 +41,7 @@ public abstract class Game {
     public static void updateBoxPanelGUI(int index){
         boardGUI.updateBoxPanel(index);
     }
+    public static void updatePlayersMoneyInfo(){ boardGUI.updatePlayersMoneyInfo(players); }
 
     public static Player GetCurrentTurnPlayer(){ return players.get(playerTurnIndex); }
 
@@ -78,7 +64,7 @@ public abstract class Game {
         if (player.canMove()) {
             int position = player.getPosition() + player.getSumDicesValue();
             if (position >= board.getBoardBoxes().size())
-                position = (board.getBoardBoxes().size() - 1) - player.getPosition() + player.getSumDicesValue();
+                position = Math.floorMod(position, board.getBoardBoxes().size());
             player.moveTo(position);
         }
         else {
@@ -106,11 +92,6 @@ public abstract class Game {
         }
     }
 
-    private static void pressEnterToContinue(String message){
-        System.out.println(message);
-        new Scanner(System.in).nextLine();
-    }
-
     private static void showMenu(){
         Player player = players.get(playerTurnIndex);
         System.out.println("-----------------------------------------------------");
@@ -119,5 +100,32 @@ public abstract class Game {
         System.out.println();
         if (players.get(playerTurnIndex).canMove()) IOController.showMenu();
         else IOController.showJailOptions(players.get(playerTurnIndex));
+    }
+
+    private static void getFirstTurn(){
+        System.out.println("El jugador que obtenga el numero de dados mas alto es el que comenzara");
+        int maxDices = 0;
+        for (Player player : players) {
+            IOController.pressEnterToContinue(player.getName()+" presiona enter para lanzar dados");
+            player.throwDices();
+            System.out.println();
+            var dices = player.getDices();
+
+            if (dices[0]+dices[1] > maxDices){
+                maxDices = dices[0]+dices[1];
+                playerTurnIndex = players.indexOf(player);
+            }
+        }
+        System.out.println();
+    }
+
+    private static void initPlayers(){
+        int playersQuantity = IOController.askForPlayersQuantity();
+        for (int i = 0; i < playersQuantity; i++){
+            String name = IOController.askForPlayerName("Escriba el nombre del jugador "+(i+1));
+            BoardToken token = IOController.askForPlayerToken("Elija la ficha para "+name);
+            players.add(new Player(name, 200, token, 0, new PlayerGUI(token)));
+            players.get(i).getPlayerGUI().setIconIn(boardGUI.getBoxPanel(0));
+        }
     }
 }

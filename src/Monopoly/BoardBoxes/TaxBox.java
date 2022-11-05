@@ -15,10 +15,10 @@ public class TaxBox extends BoardBox{
     @Override
     public void onFallInto(Player player) {
         System.out.println(player.getName()+" ha caido en "+toString());
-        System.out.println("Debe pagar $"+(-amountToPay));
+        System.out.println("Debe pagar $"+(amountToPay));
         new Scanner(System.in).nextLine();
 
-        player.addMoney(-amountToPay);
+        player.subtractMoney(amountToPay, true);
         player.leaveTurn();
     }
 }

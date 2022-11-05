@@ -15,6 +15,7 @@ public class EstateBox extends BoardBox {
         this.estate = estate;
     }
 
+    public Estate getEstate(){ return estate; }
 
     @Override
     public void onFallInto(Player player){
@@ -43,7 +44,7 @@ public class EstateBox extends BoardBox {
     public void collectMoney(Player player){
         int amount = estate.getRentValue();
         System.out.println("Debes pagar $"+amount+" a "+ estate.getOwner().getName());
-        player.addMoney(-amount);
+        player.subtractMoney(amount, true);
         estate.getOwner().addMoney(amount);
         new Scanner(System.in).nextLine();
     }

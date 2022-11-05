@@ -1,8 +1,14 @@
 package Monopoly;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class IOController {
+    public static void pressEnterToContinue(String message){
+        System.out.println(message);
+        new Scanner(System.in).nextLine();
+    }
+
     public static void showMenu(){
         Scanner keyboard = new Scanner(System.in);
         boolean exit = false;
@@ -66,6 +72,61 @@ public class IOController {
         return value;
     }
 
+    public static int askForPlayersQuantity(){
+        Scanner keyboard = new Scanner(System.in);
+        boolean exit = false;
+
+        while (!exit) {
+            System.out.println("Elija la cantidad de jugadores (2-4)");
+            String input = keyboard.nextLine();
+            if(input != null) {
+                try {
+                    int option = Integer.parseInt(input);
+
+                    if (option >= 2 && option <= 4) return option;
+                    else System.out.println("Ingrese una opcion valida");
+
+                }catch (Exception e){
+                    System.out.println("Ingrese una opcion valida");
+                }
+            }
+        }
+        return 0;
+    }
+
+    public static String askForPlayerName(String message){
+        Scanner keyboard = new Scanner(System.in);
+        System.out.println(message);
+        return keyboard.nextLine();
+    }
+
+    public static BoardToken askForPlayerToken(String message){
+        Scanner keyboard = new Scanner(System.in);
+        boolean exit = false;
+        // Generate String[] from Enum
+        String[] tokens = Arrays.stream(BoardToken.class.getEnumConstants()).map(Enum::name).toArray(String[]::new);
+
+        while (!exit) {
+            System.out.println(message);
+            for (int i = 0; i < tokens.length; i++) {
+                System.out.println((i+1)+". "+tokens[i]);
+            }
+
+            String input = keyboard.nextLine();
+            if(input != null) {
+                try {
+                    int option = Integer.parseInt(input);
+                    if (option >= 1 && option <= tokens.length)
+                        return BoardToken.valueOf(tokens[option-1]);
+                    else System.out.println("Ingrese una opcion valida");
+                }catch (Exception e){
+                    System.out.println("Ingrese una opcion valida");
+                }
+            }
+        }
+        return BoardToken.valueOf(tokens[0]);
+    }
+
     public static void showMortgageOptions(Player player){
         Scanner keyboard = new Scanner(System.in);
         boolean exit = false;
@@ -103,7 +164,7 @@ public class IOController {
                         case 1 -> {
                             exit = player.canPay(50);
                             if (exit) player.setCanMove(true);
-                            player.addMoney(-50);
+                            player.subtractMoney(50, false);
                         }
                         case 2 -> {
                             Game.throwActualPlayerDices();
