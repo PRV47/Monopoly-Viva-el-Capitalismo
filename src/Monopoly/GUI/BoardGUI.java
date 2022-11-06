@@ -10,6 +10,9 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.util.LinkedList;
 
+/**
+ * Clase encargada de mostrar el tablero en una interfaz grafica.
+ */
 public class BoardGUI {
     private JFrame mainFrame;
     private JPanel mainPanel;
@@ -19,6 +22,10 @@ public class BoardGUI {
     private final int rows = 11;
     private final int columns = 11;
 
+    /**
+     * Este metodo inicializa los valores de la interfaz grafica del tablero
+     * @param board Recibe el tablero a representar
+     */
     public void init(Board board){
         mainPanel = new JPanel();
         mainPanel.setLayout(new GridBagLayout());
@@ -29,24 +36,32 @@ public class BoardGUI {
 
         for (int i = 0; i < boardBoxesPanels.length; i++){
             try {
-                EstateBox estateBox = (EstateBox) board.getBoardBoxes().get(i);
+                EstateBox estateBox = (EstateBox) board.getBoardBoxes()[i];
                 Land land = (Land) estateBox.getEstate();
-                fillLandBox(boardBoxesPanels[i], board.getBoardBoxes().get(i).toString(),land.getColorZone());
+                fillLandBox(boardBoxesPanels[i], board.getBoardBoxes()[i].toString(),land.getColorZone());
             }
             catch (Exception e){
-                fillTextBox(boardBoxesPanels[i], board.getBoardBoxes().get(i).toString());
+                fillTextBox(boardBoxesPanels[i], board.getBoardBoxes()[i].toString());
             }
         }
         mainFrame.revalidate();
         mainFrame.repaint();
     }
 
+    /**
+     * Este metodo actualiza la interfaz grafica de un casillero
+     * @param index Recibe el indice del casillero
+     */
     public void updateBoxPanel(int index){
         mainFrame.update(boardBoxesPanels[index].getGraphics());
         mainFrame.revalidate();
         mainFrame.repaint();
     }
 
+    /**
+     * Este metodo actualiza la interfaz grafica con la informacion del dinero de los jugadores
+     * @param players Recibe la lista de jugadores
+     */
     public void updatePlayersMoneyInfo(LinkedList<Player> players){
         if (playersMoney != null) matrixPanels[5][5].remove(playersMoney);
         String[] playersMoneyStr = new String[players.size()+2];
@@ -55,19 +70,38 @@ public class BoardGUI {
         for (int i = 2; i < playersMoneyStr.length; i++) {
             playersMoneyStr[i] = players.get(i-2).getName()+": $"+players.get(i-2).getMoney();
         }
+        var constraints = new GridBagConstraints();
+        constraints.weighty = 5.0;
+        constraints.weightx = 5.0;
+        constraints.fill = GridBagConstraints.BOTH;
 
         playersMoney = new JList(playersMoneyStr);
+        playersMoney.setBackground(new Color(191,218,193));
+        DefaultListCellRenderer renderer = (DefaultListCellRenderer) playersMoney.getCellRenderer();
+        renderer.setHorizontalAlignment(SwingConstants.CENTER);
         var font = playersMoney.getFont();
-        playersMoney.setFont(new Font(font.getName(), font.getStyle(), 13));
-        matrixPanels[5][5].add(playersMoney);
+        playersMoney.setFont(new Font(font.getName(), font.getStyle(), 16));
+        matrixPanels[5][5].add(playersMoney, constraints);
+        matrixPanels[5][5].setBorder(new LineBorder(Color.BLACK));
     }
 
+    /**
+     * Este metodo obtiene la interfaz grafica de un casillero
+     * @param index Recibe el indice del casillero
+     * @return JPanel del casillero
+     */
     public JPanel getBoxPanel(int index){ return boardBoxesPanels[index]; }
 
+    /**
+     * Este metodo cierra la interfaz grafica del tablero
+     */
     public void close(){
         mainFrame.setVisible(false);
     }
 
+    /**
+     * Este metodo inicializa el JFrame de la interfaz grafica del tablero
+     */
     private void initMainFrame(){
         mainFrame = new JFrame("Monopoly");
         mainFrame.setContentPane(mainPanel);
@@ -76,6 +110,11 @@ public class BoardGUI {
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    /**
+     * Este metodo crea una division de tipo matriz en el JPanel principal para los casilleros del tablero
+     * @param rows Recibe la cantidad de filas
+     * @param columns Recibe la cantidad de columnas
+     */
     private void createPanelsMatrix(int rows, int columns){
         var constraints = new GridBagConstraints();
         constraints.gridwidth = 1;
@@ -98,6 +137,9 @@ public class BoardGUI {
         }
     }
 
+    /**
+     * Inicializa la interfaz grafica de los casilleros del tablero
+     */
     private void initBoardBoxesPanels(){
         int id = 0;
 
@@ -119,6 +161,12 @@ public class BoardGUI {
         }
     }
 
+    /**
+     * Este metodo se encarga de llenar la interfaz grafica de un casillero con la informacion dada de un terreno
+     * @param box Recibe el panel del casillero
+     * @param text Recibe el texto del casillero
+     * @param color Recibe el color a colocar en el casillero
+     */
     private void fillLandBox(JPanel box, String text, Color color){
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridx = -1;
@@ -135,6 +183,11 @@ public class BoardGUI {
         fillTextBox(box, text);
     }
 
+    /**
+     * Este metodo se encarga de llenar la interfaz grafica de un casillero con la informacion dada de un casillero
+     * @param box Recibe el panel del casillero
+     * @param text Recibe el texto del casillero
+     */
     private void fillTextBox(JPanel box, String text){
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridx = 0;
@@ -145,7 +198,6 @@ public class BoardGUI {
 
         JTextArea textArea = new JTextArea(text);
         textArea.setBackground(new Color(0,0,0,0));
-        //textArea.setFont(new Font("Kabel-Heavy", Font.PLAIN, 15));
 
         box.add(textArea, constraints);
         box.setBorder(new LineBorder(Color.BLACK));

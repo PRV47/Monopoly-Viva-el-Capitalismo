@@ -2,6 +2,9 @@ package Monopoly.Estates;
 
 import Monopoly.Player;
 
+/**
+ * Clase encargada de contener la informacion de bienes: nombre, propietario, precio
+ */
 public abstract class Estate {
     private final String name;
     private Player owner;
@@ -9,6 +12,11 @@ public abstract class Estate {
     private final int rentValue;
     private final int mortgageValue;
 
+    /**
+     * Constructor de la clase
+     * @param name Recibe el nombre
+     * @param price Recibe el precio
+     */
     public Estate(String name, int price) {
         this.name = name;
         this.price = price;

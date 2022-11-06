@@ -11,49 +11,54 @@ import Monopoly.Estates.Land;
 import Monopoly.Estates.Service;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * Clase encargada de contener e inicializar casilleros, bienes y cartas.
+ */
 public class Board {
-    private ArrayList<BoardBox> boardBoxes;
+    private BoardBox[] boardBoxes;
     private Estate[] estates;
     private Color[] zones;
     private ICard[] cards;
 
-    public Board() {
-        initBoardBoxes();
-    }
-
-    public ArrayList<BoardBox> getBoardBoxes() {
+    public BoardBox[] getBoardBoxes() {
         return boardBoxes;
     }
 
-    private void initBoardBoxes(){
+    /**
+     * Este metodo inicializa los valores de los casilleros
+     */
+    public void initBoardBoxes(){
         initZones();
         initEstates();
         initCards();
-        BoardBox[] boxes = new BoardBox[]{new BoardBox("<- GO"), new EstateBox(estates[0]), new CardBox("Carta", randomCard()),
+        boardBoxes = new BoardBox[]{new BoardBox("<- GO"), new EstateBox(estates[0]), new CardBox("Carta", getRandomCard()),
                 new EstateBox(estates[1]), new TaxBox("Impuesto", 200), new EstateBox(estates[2]),
-                new EstateBox(estates[3]), new CardBox("Carta", randomCard()), new EstateBox(estates[4]),
+                new EstateBox(estates[3]), new CardBox("Carta", getRandomCard()), new EstateBox(estates[4]),
                 new EstateBox(estates[5]), new BoardBox("Carcel"), new EstateBox(estates[6]), new EstateBox(estates[7]),
                 new EstateBox(estates[8]), new EstateBox(estates[9]), new EstateBox(estates[10]), new EstateBox(estates[11]),
-                new CardBox("Carta", randomCard()), new EstateBox(estates[12]),  new EstateBox(estates[13]),
-                new BoardBox("Estacionamiento"), new EstateBox(estates[14]), new CardBox("Carta", randomCard()),
+                new CardBox("Carta", getRandomCard()), new EstateBox(estates[12]),  new EstateBox(estates[13]),
+                new BoardBox("Estacionamiento"), new EstateBox(estates[14]), new CardBox("Carta", getRandomCard()),
                 new EstateBox(estates[15]), new EstateBox(estates[16]), new EstateBox(estates[17]), new EstateBox(estates[18]),
                 new EstateBox(estates[19]), new EstateBox(estates[20]), new EstateBox(estates[21]), new GoToJailBox("Ve a la carcel", 10),
-                new EstateBox(estates[22]), new EstateBox(estates[23]), new CardBox("Carta", randomCard()), new EstateBox(estates[24]),
-                new EstateBox(estates[25]), new CardBox("Carta", randomCard()), new EstateBox(estates[26]),
+                new EstateBox(estates[22]), new EstateBox(estates[23]), new CardBox("Carta", getRandomCard()), new EstateBox(estates[24]),
+                new EstateBox(estates[25]), new CardBox("Carta", getRandomCard()), new EstateBox(estates[26]),
                 new TaxBox("Impuesto", 100), new EstateBox(estates[27])};
-        boardBoxes = new ArrayList<>(Arrays.stream(boxes).toList());
     }
 
+    /**
+     * Este metodo inicializa los valores de las zonas de los terrenos
+     */
     private void initZones(){
         zones = new Color[]{new Color(159,87,56), new Color(163,207,236),new Color(204,77,176),
                 new Color(240,135,68),new Color(204, 63, 80),new Color(215,200,164),
                 new Color(33,171,78),new Color(0,122,184),};
     }
 
+    /**
+     * Este metodo inicializa los valores de los bienes
+     */
     private void initEstates(){
         estates = new Estate[]{new Land("AV Mediterraneo", 60, zones[0]),
                 new Land("AV Baltica", 60, zones[0]), new Ferry("Ferro. Reading", 200),
@@ -72,6 +77,9 @@ public class Board {
                 new Land("El Muelle", 400, zones[7])};
     }
 
+    /**
+     * Este metodo inicializa los valores de las cartas
+     */
     private void initCards(){
         cards = new ICard[]{new TransportCard(5), new TransportCard(10), new TransportCard(15),
                 new TransportCard(20), new TransportCard(25), new TransportCard(30),
@@ -79,7 +87,11 @@ public class Board {
                 new MoneyCard(-50), new MoneyCard(300), new MoneyCard(-300), new JailReleaseCard()};
     }
 
-    private ICard randomCard() {
+    /**
+     * Este metodo obtiene una carta aleatoria
+     * @return ICard carta aleatoria
+     */
+    private ICard getRandomCard() {
         return cards[ThreadLocalRandom.current().nextInt(0, cards.length)];
     }
 }

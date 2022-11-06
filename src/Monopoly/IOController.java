@@ -3,12 +3,23 @@ package Monopoly;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * Clase encargada de las operaciones de Input/Output. Muestra menues de opciones y
+ * es el encargado de obtener las respuestas
+ */
 public class IOController {
+    /**
+     * Este metodo imprime un mensaje y espera a que el usuario presione Enter
+     * @param message Recibe el mensaje a imprimir
+     */
     public static void pressEnterToContinue(String message){
         System.out.println(message);
         new Scanner(System.in).nextLine();
     }
 
+    /**
+     * Muestra el menu del juego y recibe la opcion a ejecutar
+     */
     public static void showMenu(){
         Scanner keyboard = new Scanner(System.in);
         boolean exit = false;
@@ -24,20 +35,20 @@ public class IOController {
                     int option = Integer.parseInt(input);
 
                     switch (option) {
-                        case 1 -> {
+                        case 1: {
                             Game.printPlayersInfo();
                             keyboard.nextLine();
                         }
-                        case 2 -> {
+                        case 2: {
                             Game.throwActualPlayerDices();
                             exit = true;
                         }
-                        case 3 -> {
+                        case 3: {
                             Game.printActualPlayerEstates();
                             keyboard.nextLine();
                         }
-                        case 4 -> showMortgageOptions(Game.GetCurrentTurnPlayer());
-                        default -> System.out.println("Ingrese una opcion valida");
+                        case 4: showMortgageOptions(Game.GetCurrentTurnPlayer());
+                        default: System.out.println("Ingrese una opcion valida");
                     }
                 }catch (Exception e){
                     System.out.println("Ingrese una opcion valida");
@@ -46,6 +57,11 @@ public class IOController {
         }
     }
 
+    /**
+     * Imprime una pregunta a ser respondida con si o no
+     * @param message Recibe el mensaje a imprimir
+     * @return Verdadero si responde Si, falso si no
+     */
     public static boolean yesNoQuestion(String message){
         Scanner keyboard = new Scanner(System.in);
         boolean exit = false;
@@ -70,6 +86,10 @@ public class IOController {
         return value;
     }
 
+    /**
+     * Este metodo consulta la cantidad de jugadores que se desean tener en la partida
+     * @return int cantidad de jugadores
+     */
     public static int askForPlayersQuantity(){
         Scanner keyboard = new Scanner(System.in);
         boolean exit = false;
@@ -92,12 +112,22 @@ public class IOController {
         return 0;
     }
 
+    /**
+     * Este mensaje consulta al usuario el nombre de un jugador
+     * @param message Recibe el mensaje a imprimir
+     * @return String nombre del jugador
+     */
     public static String askForPlayerName(String message){
         Scanner keyboard = new Scanner(System.in);
         System.out.println(message);
         return keyboard.nextLine();
     }
 
+    /**
+     * Este mensaje consulta al usuario el token de un jugador
+     * @param message Recibe el mensaje a imprimir
+     * @return BoardToken del jugador
+     */
     public static BoardToken askForPlayerToken(String message){
         Scanner keyboard = new Scanner(System.in);
         boolean exit = false;
@@ -125,6 +155,10 @@ public class IOController {
         return BoardToken.valueOf(tokens[0]);
     }
 
+    /**
+     * Este metodo muestra el menu con las opciones de bienes a hipotecar
+     * @param player Recibe el jugador que desea realizar hipotecas
+     */
     public static void showMortgageOptions(Player player){
         Scanner keyboard = new Scanner(System.in);
         boolean exit = false;
@@ -145,6 +179,10 @@ public class IOController {
         }
     }
 
+    /**
+     * Este metodo muestra el menu con las opciones para salir de la carcel
+     * @param player Recibe el jugador a mostrar el menu
+     */
     public static void showJailOptions(Player player){
         Scanner keyboard = new Scanner(System.in);
         boolean exit = false;
@@ -159,17 +197,17 @@ public class IOController {
                     int option = Integer.parseInt(input);
 
                     switch (option) {
-                        case 1 -> {
+                        case 1: {
                             exit = player.canPay(50);
                             if (exit) player.setCanMove(true);
                             player.subtractMoney(50, false);
                         }
-                        case 2 -> {
+                        case 2: {
                             Game.throwActualPlayerDices();
                             player.leaveTurn();
                             exit = true;
                         }
-                        case 3 -> {
+                        case 3: {
                             if (player.hasJailReleaseCard()) {
                                 player.setHasJailReleaseCard(false);
                                 player.setCanMove(true);
@@ -177,7 +215,7 @@ public class IOController {
                             }
                             else System.out.println("No posee la carta de liberacion");
                         }
-                        default -> System.out.println("Ingrese una opcion valida");
+                        default: System.out.println("Ingrese una opcion valida");
                     }
                 }catch (Exception e){
                     System.out.println("Ingrese una opcion valida");
