@@ -6,9 +6,6 @@ import java.awt.*;
  * Esta clase es un tipo de bien, representa a los Terrenos, anade un color caracteristico de la zona.
  */
 public class Land extends Estate{
-    private int houses;
-    private int hotels;
-    private int housesCost;
     private final Color colorZone;
 
      /**

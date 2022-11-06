@@ -72,7 +72,7 @@ public abstract class Game {
     /**
      * @return Player cuyo turno es el actual
      */
-    public static Player GetCurrentTurnPlayer(){ return players.get(playerTurnIndex); }
+    public static Player getCurrentTurnPlayer(){ return players.get(playerTurnIndex); }
 
     /**
      * Este metodo otorga el turno al proximo jugador

@@ -51,7 +51,7 @@ public class IOController {
                             break;
                         }
                         case 4: {
-                            showMortgageOptions(Game.GetCurrentTurnPlayer());
+                            showMortgageOptions(Game.getCurrentTurnPlayer());
                             break;
                         }
                         default: {
