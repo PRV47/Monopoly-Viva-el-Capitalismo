@@ -181,7 +181,7 @@ public abstract class Game {
         for (int i = 0; i < playersQuantity; i++){
             String name = IOController.askForPlayerName("Escriba el nombre del jugador "+(i+1));
             BoardToken token = IOController.askForPlayerToken("Elija la ficha para "+name);
-            players.add(new Player(name, 200, token, 0, new PlayerGUI(token)));
+            players.add(new Player(name, 1500, token, 0, new PlayerGUI(token)));
             players.get(i).getPlayerGUI().setIconIn(boardGUI.getBoxPanel(0));
         }
     }

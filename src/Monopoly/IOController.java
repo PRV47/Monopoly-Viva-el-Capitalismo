@@ -38,17 +38,26 @@ public class IOController {
                         case 1: {
                             Game.printPlayersInfo();
                             keyboard.nextLine();
+                            break;
                         }
                         case 2: {
                             Game.throwActualPlayerDices();
                             exit = true;
+                            break;
                         }
                         case 3: {
                             Game.printActualPlayerEstates();
                             keyboard.nextLine();
+                            break;
                         }
-                        case 4: showMortgageOptions(Game.GetCurrentTurnPlayer());
-                        default: System.out.println("Ingrese una opcion valida");
+                        case 4: {
+                            showMortgageOptions(Game.GetCurrentTurnPlayer());
+                            break;
+                        }
+                        default: {
+                            System.out.println("Ingrese una opcion valida");
+                            break;
+                        }
                     }
                 }catch (Exception e){
                     System.out.println("Ingrese una opcion valida");
@@ -201,11 +210,13 @@ public class IOController {
                             exit = player.canPay(50);
                             if (exit) player.setCanMove(true);
                             player.subtractMoney(50, false);
+                            break;
                         }
                         case 2: {
                             Game.throwActualPlayerDices();
                             player.leaveTurn();
                             exit = true;
+                            break;
                         }
                         case 3: {
                             if (player.hasJailReleaseCard()) {
@@ -214,8 +225,12 @@ public class IOController {
                                 exit = true;
                             }
                             else System.out.println("No posee la carta de liberacion");
+                            break;
                         }
-                        default: System.out.println("Ingrese una opcion valida");
+                        default: {
+                            System.out.println("Ingrese una opcion valida");
+                            break;
+                        }
                     }
                 }catch (Exception e){
                     System.out.println("Ingrese una opcion valida");
