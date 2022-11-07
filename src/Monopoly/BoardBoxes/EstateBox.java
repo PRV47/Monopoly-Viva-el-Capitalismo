@@ -52,7 +52,7 @@ public class EstateBox extends BoardBox {
      * Este metodo es el encargado de mostrar al usuario la oferta de este bien
      * @param player Recibe el jugador al cual ofrecer
      */
-    public void showEstateOffer(Player player){
+    private void showEstateOffer(Player player){
         boolean bought = IOController.yesNoQuestion("Quieres comprar el bien: "+estate.getName()+
                 " con precio: "+estate.getPrice()+"? (Y/N)");
 
@@ -63,7 +63,7 @@ public class EstateBox extends BoardBox {
      * Este metodo se encarga de cobrar al jugador que llega a este casillero
      * @param player Recibe el jugador al cual se debe cobrar
      */
-    public void collectMoney(Player player){
+    private void collectMoney(Player player){
         int amount = estate.getRentValue();
         System.out.println("Debes pagar $"+amount+" a "+ estate.getOwner().getName());
         player.subtractMoney(amount, true);
